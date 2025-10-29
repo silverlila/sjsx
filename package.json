@@ -1,0 +1,60 @@
+{
+  "name": "sjsx",
+  "version": "1.0.0",
+  "description": "Stream JSX - A lightweight JSX framework with streaming SSR for rapid prototyping",
+  "type": "module",
+  "main": "./src/index.js",
+  "bin": {
+    "sjsx": "./dist/bin/sjsx.js"
+  },
+  "exports": {
+    "./jsx-runtime": {
+      "types": "./dist/src/jsx-runtime.d.ts",
+      "import": "./dist/src/jsx-runtime.js"
+    }
+  },
+  "scripts": {
+    "dev": "tsx --watch server.tsx",
+    "dev:cli": "tsx bin/sjsx-dev.ts",
+    "build": "tsc -p tsconfig.build.json",
+    "prepublishOnly": "pnpm build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "keywords": [
+    "jsx",
+    "ssr",
+    "server-side-rendering",
+    "streaming",
+    "suspense",
+    "framework",
+    "typescript",
+    "web-standards",
+    "prototyping"
+  ],
+  "author": "silvi lila",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/silverlila/sjsx.git"
+  },
+  "bugs": {
+    "url": "https://github.com/silverlila/sjsx/issues"
+  },
+  "homepage": "https://github.com/silverlila/sjsx#readme",
+  "packageManager": "pnpm@10.18.2",
+  "devDependencies": {
+    "@types/node": "^24.7.1",
+    "npm": "^11.6.2",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@remix-run/node-fetch-server": "^0.10.0",
+    "commander": "^14.0.1",
+    "tsx": "^4.20.6"
+  }
+}
