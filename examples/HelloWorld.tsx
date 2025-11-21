@@ -1,3 +1,10 @@
+import { Suspense } from "sjsx/jsx-runtime";
+
+async function AsynComponent() {
+  await new Promise((resolve) => setTimeout(resolve, 3000));
+  return <div>Shyqyr mo shyqyr</div>;
+}
+
 export default function HelloWorld() {
   return (
     <div
@@ -26,6 +33,9 @@ export default function HelloWorld() {
           <li>✅ Zero Config</li>
         </ul>
       </div>
+      <Suspense fallback={<div>Loading...</div>}>
+        <AsynComponent />
+      </Suspense>
     </div>
   );
 }

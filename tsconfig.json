@@ -11,10 +11,10 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "jsx": "react-jsx",
-    "jsxImportSource": "my-sjsx",
+    "jsxImportSource": "sjsx",
     "paths": {
-      "my-sjsx/*": ["./*"],
-      "my-sjsx/jsx-runtime": ["./src/jsx-runtime"]
+      "sjsx/*": ["./*"],
+      "sjsx/jsx-runtime": ["./src/jsx-runtime"]
     }
   },
   "include": ["./src/**/*", "examples/**/*", "server.tsx"],

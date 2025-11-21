@@ -1,20 +1,11 @@
-import { Fragment } from "./fragment.js";
-import type { JSXElement, ElementType, Key, JSXNode } from "./types.js";
-
-function jsx(
-  type: ElementType,
-  config: Record<string, any> | null
-): JSXElement {
-  const { key, ...props } = config || {};
-
-  return {
-    type,
-    props,
-    key: (key ?? null) as Key,
-  };
-}
-
-const jsxs = jsx;
+import type {
+  JSXElement,
+  ElementType,
+  Key,
+  JSXNode,
+  FragmentProps,
+  SuspenseProps,
+} from "./types.js";
 
 declare global {
   namespace JSX {
@@ -38,14 +29,38 @@ declare global {
   }
 }
 
+function jsx(
+  type: ElementType,
+  config: Record<string, any> | null
+): JSXElement {
+  const { key, ...props } = config || {};
+
+  return {
+    type,
+    props,
+    key: (key ?? null) as Key,
+  };
+}
+
+const jsxs = jsx;
+
+function Fragment({ children }: FragmentProps): JSXNode {
+  return children;
+}
+
+export const SUSPENSE_SYMBOL = Symbol("suspense");
+
+export function Suspense(props: SuspenseProps): JSXElement {
+  return {
+    type: SUSPENSE_SYMBOL,
+    props,
+    key: null,
+  };
+}
+
 export { jsx, jsxs, Fragment };
 
-export type {
-  JSXElement,
-  JSXNode,
-  ElementType,
-  ElementProps,
-  ComponentFunction,
-  HTMLAttributes,
-  CSSProperties,
-} from "./types.js";
+//@ts-ignore
+globalThis.jsx = jsx;
+//@ts-ignore
+globalThis.Fragment = Fragment;

@@ -1,7 +1,6 @@
 import type { JSXNode } from "./types.js";
-import { isSuspense } from "./suspense.js";
 import type { StreamContext } from "./types.js";
-import { isFragment } from "./fragment.js";
+import { isFragment, isSuspense } from "./utils.js";
 
 const ATTRIBUTES_MAP: Record<string, string> = {
   className: "class",
@@ -73,7 +72,7 @@ function processCss(value: any) {
 function containsAsync(element: JSXNode): boolean {
   if (element instanceof Promise) return true;
   if (Array.isArray(element)) {
-    return element.some(child => containsAsync(child));
+    return element.some((child) => containsAsync(child));
   }
   if (
     typeof element === "string" ||
@@ -127,6 +126,9 @@ async function* generateHTML(
 
   const { type, props } = element;
 
+  console.log("[DEBUG] Checking element type:", typeof type, type);
+  console.log("[DEBUG] isSuspense result:", isSuspense(type));
+
   if (isSuspense(type)) {
     const { fallback, children } = props;
     const hasAsync = containsAsync(children);
@@ -175,13 +177,16 @@ async function* generateHTML(
       const resolvedResult = result instanceof Promise ? await result : result;
       yield* generateHTML(resolvedResult, context);
     } catch (error) {
-      console.error(`Error rendering component ${type.name}:`, error);
-      yield `<!-- Error rendering component ${type.name}: ${
+      const componentName = typeof type === "symbol"
+        ? String(type)
+        : (type.name || "component");
+      console.error(`Error rendering component ${componentName}:`, error);
+      yield `<!-- Error rendering component ${componentName}: ${
         error instanceof Error ? escapeHtml(error.message) : "Unknown error"
       } -->`;
       yield `<div style="border: 2px solid red; padding: 10px; background: #fee;">`;
       yield `<strong>Component Error</strong>: Failed to render ${escapeHtml(
-        type.name || "component"
+        componentName
       )}`;
       yield `</div>`;
     }
@@ -255,7 +260,10 @@ export function renderToStream(element: JSXNode): ReadableStream<string> {
               `</script>`
           );
         } catch (error) {
-          console.error(`Error resolving Suspense boundary ${boundary.id}:`, error);
+          console.error(
+            `Error resolving Suspense boundary ${boundary.id}:`,
+            error
+          );
           controller.enqueue(
             `<script>console.error("Failed to load content for boundary ${boundary.id}");</script>`
           );
