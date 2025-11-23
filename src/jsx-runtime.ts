@@ -4,7 +4,6 @@ import type {
   Key,
   JSXNode,
   FragmentProps,
-  SuspenseProps,
 } from "./types.js";
 
 declare global {
@@ -46,16 +45,6 @@ const jsxs = jsx;
 
 function Fragment({ children }: FragmentProps): JSXNode {
   return children;
-}
-
-export const SUSPENSE_SYMBOL = Symbol("suspense");
-
-export function Suspense(props: SuspenseProps): JSXElement {
-  return {
-    type: SUSPENSE_SYMBOL,
-    props,
-    key: null,
-  };
 }
 
 export { jsx, jsxs, Fragment };

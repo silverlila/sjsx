@@ -10,7 +10,12 @@ await build({
   banner: {
     js: "#!/usr/bin/env node",
   },
-  external: ["esbuild", "./loader.js", "./jsx-runtime.js"],
+  external: [
+    "esbuild",
+    "@remix-run/node-fetch-server",
+    "./loader.js",
+    "./jsx-runtime.js",
+  ],
 });
 
 await build({

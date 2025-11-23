@@ -1,45 +1,11 @@
+import {
+  ATTRIBUTES_MAP,
+  BOOLEAN_ATTRIBUTES,
+  VOID_ELEMENTS,
+} from "./constants.js";
 import type { JSXNode } from "./types.js";
 import type { StreamContext } from "./types.js";
 import { isFragment, isSuspense } from "./utils.js";
-
-const ATTRIBUTES_MAP: Record<string, string> = {
-  className: "class",
-  htmlFor: "for",
-  crossOrigin: "crossorigin",
-  acceptCharset: "accept-charset",
-};
-
-const BOOLEAN_ATTRIBUTES = new Set([
-  "disabled",
-  "checked",
-  "selected",
-  "readonly",
-  "required",
-  "autofocus",
-  "autoplay",
-  "controls",
-  "loop",
-  "muted",
-  "multiple",
-  "open",
-]);
-
-const VOID_ELEMENTS = new Set([
-  "area",
-  "base",
-  "br",
-  "col",
-  "embed",
-  "hr",
-  "img",
-  "input",
-  "link",
-  "meta",
-  "param",
-  "source",
-  "track",
-  "wbr",
-]);
 
 function escapeHtml(text: string): string {
   const htmlEscapeMap: Record<string, string> = {
@@ -126,9 +92,6 @@ async function* generateHTML(
 
   const { type, props } = element;
 
-  console.log("[DEBUG] Checking element type:", typeof type, type);
-  console.log("[DEBUG] isSuspense result:", isSuspense(type));
-
   if (isSuspense(type)) {
     const { fallback, children } = props;
     const hasAsync = containsAsync(children);
@@ -177,9 +140,8 @@ async function* generateHTML(
       const resolvedResult = result instanceof Promise ? await result : result;
       yield* generateHTML(resolvedResult, context);
     } catch (error) {
-      const componentName = typeof type === "symbol"
-        ? String(type)
-        : (type.name || "component");
+      const componentName =
+        typeof type === "symbol" ? String(type) : type.name || "component";
       console.error(`Error rendering component ${componentName}:`, error);
       yield `<!-- Error rendering component ${componentName}: ${
         error instanceof Error ? escapeHtml(error.message) : "Unknown error"

@@ -1,5 +1,3 @@
-import { Suspense } from "sjsx/jsx-runtime";
-
 async function AsynComponent() {
   await new Promise((resolve) => setTimeout(resolve, 3000));
   return <div>Shyqyr mo shyqyr</div>;
@@ -29,13 +27,11 @@ export default function HelloWorld() {
         <ul style={{ listStyle: "none", padding: 0 }}>
           <li>✅ Server-Side Rendering</li>
           <li>✅ Streaming HTML</li>
-          <li>✅ Hot Reload</li>
+          <li>✅ Hot Reload 222</li>
           <li>✅ Zero Config</li>
         </ul>
       </div>
-      <Suspense fallback={<div>Loading...</div>}>
-        <AsynComponent />
-      </Suspense>
+      <AsynComponent />
     </div>
   );
 }

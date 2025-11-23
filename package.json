@@ -41,19 +41,12 @@
   "homepage": "https://github.com/silverlila/sjsx#readme",
   "packageManager": "pnpm@10.18.2",
   "devDependencies": {
-    "@types/minimist": "^1.2.5",
     "@types/node": "^24.7.1",
-    "npm": "^11.6.2",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@esbuild-kit/esm-loader": "^2.6.5",
     "@remix-run/node-fetch-server": "^0.10.0",
-    "commander": "^14.0.1",
-    "esbuild": "^0.27.0",
-    "esbuild-register": "^3.6.0",
-    "minimist": "^1.2.8",
-    "tsx": "^4.20.6"
+    "esbuild": "^0.27.0"
   }
 }

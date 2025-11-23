@@ -14,9 +14,10 @@
     "jsxImportSource": "sjsx",
     "paths": {
       "sjsx/*": ["./*"],
-      "sjsx/jsx-runtime": ["./src/jsx-runtime"]
+      "sjsx/jsx-runtime": ["./src/jsx-runtime"],
+      "sjsx/components": ["./src/suspense"]
     }
   },
-  "include": ["./src/**/*", "examples/**/*", "server.tsx"],
+  "include": ["./src/**/*", "examples/**/*"],
   "exclude": ["node_modules", "dist"]
 }

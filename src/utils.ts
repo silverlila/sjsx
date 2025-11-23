@@ -1,4 +1,4 @@
-import { SUSPENSE_SYMBOL } from "./jsx-runtime";
+import { SUSPENSE_SYMBOL } from "./suspense";
 import { ElementType } from "./types";
 
 export function html(source: string | ReadableStream<string>) {
@@ -17,5 +17,5 @@ export function isFragment(type: ElementType): boolean {
 }
 
 export function isSuspense(type: ElementType): boolean {
-  return type === SUSPENSE_SYMBOL;
+  return typeof type === "symbol" && type === SUSPENSE_SYMBOL;
 }
